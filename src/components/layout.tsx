@@ -3,40 +3,11 @@ import styled from "styled-components";
 import { auth } from "../routes/firebase";
 
 const Wrapper = styled.div`
-  display: grid;
-  gap: 20px;
   grid-template-columns: 1fr 4fr;
-  height: 100%;
-  padding: 50px 0px;
-  width: 100%;
   max-width: 860px;
 `;
-const Menu = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-`;
-const Menuitem = styled.div`
-  cusor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid white;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  svg {
-    width: 30px;
-    fill: white;
-  }
-  &.log-out {
-    border-color: tomato;
-    svg {
-      fill: tomato;
-    }
-  }
-`;
+const Menu = styled.div``;
+const Menuitem = styled.div``;
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -49,11 +20,12 @@ export default function Layout() {
   };
 
   return (
-    <Wrapper>
-      <Menu>
+    <Wrapper className="grid gap-20 h-full w-full py-10">
+      <Menu className="flex flex-col items-center gap-5">
         <Link to="/">
-          <Menuitem>
+          <Menuitem className="cursor-pointer flex items-center justify-center border-solid border-white w-12 h-12 rounded-full border-2">
             <svg
+              className="w-8 fill-white"
               data-slot="icon"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -69,8 +41,9 @@ export default function Layout() {
           </Menuitem>
         </Link>
         <Link to="/profile">
-          <Menuitem>
+          <Menuitem className="cursor-pointer flex items-center justify-center border-solid border-white w-12 h-12 rounded-full border-2">
             <svg
+              className="w-8 fill-white"
               data-slot="icon"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -81,8 +54,12 @@ export default function Layout() {
             </svg>
           </Menuitem>
         </Link>
-        <Menuitem onClick={onLogOut} className="log-out">
+        <Menuitem
+          className="cursor-pointer flex items-center justify-center border-[tomato] border-solid border-[tomato] w-12 h-12 rounded-full border-2"
+          onClick={onLogOut}
+        >
           <svg
+            className="w-8 fill-[tomato]"
             data-slot="icon"
             fill="currentColor"
             viewBox="0 0 20 20"

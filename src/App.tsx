@@ -13,8 +13,6 @@ import ProtectedRoute from "./components/protected-route";
 import FindPassword from "./routes/find-password";
 import EditTweet from "./routes/edit-tweet";
 
-import "./public/css/index.css";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -80,7 +78,7 @@ function App() {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper className="h-lvh">
       <GlobalStyles />
       {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
     </Wrapper>
