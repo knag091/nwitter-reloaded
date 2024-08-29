@@ -1,10 +1,15 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../routes/firebase";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const Wrapper = styled.div`
   grid-template-columns: 1fr 4fr;
   max-width: 860px;
+  overflow: hidden;
+
+  position: relative;
 `;
 const Menu = styled.div``;
 const Menuitem = styled.div``;
@@ -18,6 +23,61 @@ export default function Layout() {
       navigate("/login");
     }
   };
+  const [, setAnimate] = useState(false);
+  const location = useLocation();
+
+  const [animationState, setAnimationState] = useState("initial");
+  const buttonVariants = {
+    initial: { scale: 1, opacity: 1, x: 0, y: 0 },
+    clicked: {
+      scale: 10,
+      opacity: 1,
+      left: "50%",
+      top: "50%",
+      x: "-30%",
+      y: "-50%",
+      transition: {
+        duration: 0.5,
+        stiffness: 80,
+        damping: 10,
+        onComplete: () => {
+          setTimeout(() => {
+            setAnimationState("hidden");
+          }, 800); // 3 seconds delay
+        },
+      },
+    },
+    hidden: {
+      scale: 1,
+      opacity: 0, // Hide the button after the animation
+      left: "50%",
+      top: "50%",
+      x: "-50%",
+      y: "-50%",
+      transition: {
+        duration: 1, // Slow fade out
+      },
+    },
+  };
+  const handleClick = () => {
+    setAnimationState("clicked");
+  };
+  useEffect(() => {
+    if (animationState === "hidden") {
+      const timeout = setTimeout(() => {
+        setAnimationState("initial");
+      }, 500); // Match the duration of the hidden state transition
+
+      return () => clearTimeout(timeout);
+    }
+  }, [animationState]);
+  useEffect(() => {
+    if (location.pathname === "/animation") {
+      setAnimate(true);
+      const timer = setTimeout(() => setAnimate(false), 500); // 애니메이션 지속 시간과 일치해야 합니다.
+      return () => clearTimeout(timer);
+    }
+  }, [location]);
 
   return (
     <Wrapper className="grid gap-20 h-full w-full py-10">
@@ -77,18 +137,35 @@ export default function Layout() {
             </svg>
           </Menuitem>
         </Link>
+
         <Link to="/animation">
           <Menuitem className="cursor-pointer flex items-center justify-center border-solid border-white w-12 h-12 rounded-full border-2">
-            <svg
-              className="w-8 fill-white"
-              data-slot="icon"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
+            <motion.button
+              initial="initial"
+              animate={animationState}
+              variants={buttonVariants}
+              onClick={handleClick}
+              style={{
+                position: "absolute",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "50%",
+                cursor: "pointer",
+                outline: "none",
+                zIndex: 10,
+              }}
             >
-              <path d="M10.362 1.093a.75.75 0 0 0-.724 0L2.523 5.018 10 9.143l7.477-4.125-7.115-3.925ZM18 6.443l-7.25 4v8.25l6.862-3.786A.75.75 0 0 0 18 14.25V6.443ZM9.25 18.693v-8.25l-7.25-4v7.807a.75.75 0 0 0 .388.657l6.862 3.786Z" />
-            </svg>
+              <svg
+                className="w-8 fill-white"
+                data-slot="icon"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path d="M10.362 1.093a.75.75 0 0 0-.724 0L2.523 5.018 10 9.143l7.477-4.125-7.115-3.925ZM18 6.443l-7.25 4v8.25l6.862-3.786A.75.75 0 0 0 18 14.25V6.443ZM9.25 18.693v-8.25l-7.25-4v7.807a.75.75 0 0 0 .388.657l6.862 3.786Z" />
+              </svg>
+            </motion.button>
           </Menuitem>
         </Link>
         <Menuitem
