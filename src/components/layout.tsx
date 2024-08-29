@@ -3,40 +3,11 @@ import styled from "styled-components";
 import { auth } from "../routes/firebase";
 
 const Wrapper = styled.div`
-  display: grid;
-  gap: 20px;
   grid-template-columns: 1fr 4fr;
-  height: 100%;
-  padding: 50px 0px;
-  width: 100%;
   max-width: 860px;
 `;
-const Menu = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-`;
-const Menuitem = styled.div`
-  cusor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid white;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  svg {
-    width: 30px;
-    fill: white;
-  }
-  &.log-out {
-    border-color: tomato;
-    svg {
-      fill: tomato;
-    }
-  }
-`;
+const Menu = styled.div``;
+const Menuitem = styled.div``;
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -49,11 +20,12 @@ export default function Layout() {
   };
 
   return (
-    <Wrapper>
-      <Menu>
+    <Wrapper className="grid gap-20 h-full w-full py-10">
+      <Menu className="flex flex-col items-center gap-5">
         <Link to="/">
-          <Menuitem>
+          <Menuitem className="cursor-pointer flex items-center justify-center border-solid border-white w-12 h-12 rounded-full border-2">
             <svg
+              className="w-8 fill-white"
               data-slot="icon"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -69,8 +41,9 @@ export default function Layout() {
           </Menuitem>
         </Link>
         <Link to="/profile">
-          <Menuitem>
+          <Menuitem className="cursor-pointer flex items-center justify-center border-solid border-white w-12 h-12 rounded-full border-2">
             <svg
+              className="w-8 fill-white"
               data-slot="icon"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -81,8 +54,49 @@ export default function Layout() {
             </svg>
           </Menuitem>
         </Link>
-        <Menuitem onClick={onLogOut} className="log-out">
+        <Link to="/todo">
+          <Menuitem className="cursor-pointer flex items-center justify-center border-solid border-white w-12 h-12 rounded-full border-2">
+            <svg
+              className="w-8 fill-white"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                clipRule="evenodd"
+                fillRule="evenodd"
+                d="M15.988 3.012A2.25 2.25 0 0 1 18 5.25v6.5A2.25 2.25 0 0 1 15.75 14H13.5V7A2.5 2.5 0 0 0 11 4.5H8.128a2.252 2.252 0 0 1 1.884-1.488A2.25 2.25 0 0 1 12.25 1h1.5a2.25 2.25 0 0 1 2.238 2.012ZM11.5 3.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v.25h-3v-.25Z"
+              />
+              <path
+                clipRule="evenodd"
+                fillRule="evenodd"
+                d="M2 7a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7Zm2 3.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Zm0 3.5a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"
+              />
+            </svg>
+          </Menuitem>
+        </Link>
+        <Link to="/animation">
+          <Menuitem className="cursor-pointer flex items-center justify-center border-solid border-white w-12 h-12 rounded-full border-2">
+            <svg
+              className="w-8 fill-white"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M10.362 1.093a.75.75 0 0 0-.724 0L2.523 5.018 10 9.143l7.477-4.125-7.115-3.925ZM18 6.443l-7.25 4v8.25l6.862-3.786A.75.75 0 0 0 18 14.25V6.443ZM9.25 18.693v-8.25l-7.25-4v7.807a.75.75 0 0 0 .388.657l6.862 3.786Z" />
+            </svg>
+          </Menuitem>
+        </Link>
+        <Menuitem
+          className="cursor-pointer flex items-center justify-center border-[tomato] border-solid border-[tomato] w-12 h-12 rounded-full border-2"
+          onClick={onLogOut}
+        >
           <svg
+            className="w-8 fill-[tomato]"
             data-slot="icon"
             fill="currentColor"
             viewBox="0 0 20 20"

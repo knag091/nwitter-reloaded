@@ -12,7 +12,8 @@ import { auth } from "./routes/firebase";
 import ProtectedRoute from "./components/protected-route";
 import FindPassword from "./routes/find-password";
 import EditTweet from "./routes/edit-tweet";
-import FramerMotion from "./components/framer-motion";
+import TodoList from "./routes/todoList";
+import Animation from "./routes/animation";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: "/edit-tweet/:id",
         element: <EditTweet />,
+      },
+      {
+        path: "/todo",
+        element: <TodoList />,
+      },
+      {
+        path: "/animation",
+        element: <Animation />,
       },
     ],
   },
@@ -80,9 +89,8 @@ function App() {
 
   return (
     <Wrapper>
-      <FramerMotion />
-      {/* <GlobalStyles />
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />} */}
+      <GlobalStyles />
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
     </Wrapper>
   );
 }
