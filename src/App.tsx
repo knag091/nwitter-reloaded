@@ -12,6 +12,7 @@ import { auth } from "./routes/firebase";
 import ProtectedRoute from "./components/protected-route";
 import FindPassword from "./routes/find-password";
 import EditTweet from "./routes/edit-tweet";
+import FramerMotion from "./components/framer-motion";
 
 const router = createBrowserRouter([
   {
@@ -79,8 +80,9 @@ function App() {
 
   return (
     <Wrapper>
-      <GlobalStyles />
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      <FramerMotion />
+      {/* <GlobalStyles />
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />} */}
     </Wrapper>
   );
 }
