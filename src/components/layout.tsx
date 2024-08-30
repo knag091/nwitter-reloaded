@@ -56,21 +56,49 @@ export default function Layout() {
       y: "-50%",
       transition: {
         duration: 1, // Slow fade out
+        onComplete: () => {
+          setTimeout(() => {
+            setAnimationState("return_to_initial_position");
+          }, 0); // 3 seconds delay
+        },
+      },
+    },
+    return_to_initial_position: {
+      scale: 1,
+      opacity: 0,
+      x: 0,
+      y: 0,
+      transition: {
+        duration: 0.2, // Slow fade out
+        onComplete: () => {
+          setTimeout(() => {
+            setAnimationState("initial");
+          }, 0); // 3 seconds delay
+        },
       },
     },
   };
   const handleClick = () => {
     setAnimationState("clicked");
   };
-  useEffect(() => {
-    if (animationState === "hidden") {
-      const timeout = setTimeout(() => {
-        setAnimationState("initial");
-      }, 500); // Match the duration of the hidden state transition
+  // useEffect(() => {
+  //   if (animationState === "hidden") {
+  //     const timeout = setTimeout(() => {
+  //       setAnimationState("return_to_initial_position");
+  //     }, 1000); // Match the duration of the hidden state transition
 
-      return () => clearTimeout(timeout);
-    }
-  }, [animationState]);
+  //     return () => clearTimeout(timeout);
+  //   }
+  // }, [animationState]);
+  // useEffect(() => {
+  //   if (animationState === "return_to_initial_position") {
+  //     const timeout = setTimeout(() => {
+  //       setAnimationState("initial");
+  //     }, 1000); // Match the duration of the hidden state transition
+
+  //     return () => clearTimeout(timeout);
+  //   }
+  // }, [animationState]);
   useEffect(() => {
     if (location.pathname === "/animation") {
       setAnimate(true);
@@ -169,7 +197,7 @@ export default function Layout() {
           </Menuitem>
         </Link>
         <Menuitem
-          className="cursor-pointer flex items-center justify-center border-[tomato] border-solid border-[tomato] w-12 h-12 rounded-full border-2"
+          className="cursor-pointer flex items-center justify-center border-solid border-[tomato] w-12 h-12 rounded-full border-2"
           onClick={onLogOut}
         >
           <svg
